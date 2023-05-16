@@ -204,7 +204,7 @@ You need to add the three new users to a Security group and assign licenses as i
 | Miranda Snider | Contoso_Managers | Office 365 E5, Enterprise Mobility + Security E5 via group membership |
 | Cody Godinez   | Contoso_Sales    | Office 365 E5, Enterprise Mobility + Security E5 via group membership direct assignment |
 
-You also been asked to modify the Company branding for the sign-in page.
+You have also been asked to modify the Company branding for the sign-in page.
 
 ### Task 1: Create groups by using the Azure Active Directory admin center
 
