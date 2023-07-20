@@ -26,11 +26,11 @@ It's been determined that all the information on SEA-WS1 should be encrypted. Yo
 
 2. On the taskbar, select **Microsoft Edge**.
 
-3. In Microsoft Edge, type **https://endpoint.microsoft.com** in the  address bar, and then press **Enter**. 
+3. In Microsoft Edge, type **https://intune.microsoft.com** in the  address bar, and then press **Enter**. 
 
 4. Sign in as as **`admin@yourtenant.onmicrosoft.com`** with the default tenant password.
 
-5. In the Microsoft Endpoint Manager admin center, select **Endpoint security** from the navigation bar.
+5. In the Microsoft Intune admin center, select **Endpoint security** from the navigation bar.
 
 6. On the **Endpoint security| Overview** page, select **Disk encryption**.
 
@@ -47,7 +47,10 @@ It's been determined that all the information on SEA-WS1 should be encrypted. Yo
     -   Description: **Enable BitLocker for all devices**
 10. On the **Configurations settings** page, expand **BitLocker - Base Settings** and then configure the following options:
 
-     - Enable full disk encryption for OS and fixed data drives: **Yes**
+     - Enable Full disk or Used Space only encryption for OS and fixed data drives: **Yes**
+
+    > **Note** If you don't see the below settings, navigate to https://intune.microsoft.com/#view/Microsoft_Intune_Workflows/CreateUpdate/templateId/d1174162-1dd2-4976-affc-6667049ab0ae/baselineVersion//platform/Windows%2010%20and%20later/templateName/BitLocker/feature~/2 and resume from Step 8
+
 11. On the **Configurations settings** page, expand **BitLocker - OS Drive Settings** and then configure the following options:
      - BitLocker system drive policy: **Configure**
      - Startup authentication required: **Yes**

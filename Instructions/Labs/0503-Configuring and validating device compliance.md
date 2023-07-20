@@ -37,21 +37,21 @@ If a device meets these requirements, it will be marked as compliant. If the dev
 
 2. On the taskbar, select **Microsoft Edge**.
 
-3. In Microsoft Edge, type **https://endpoint.microsoft.com** in the  address bar, and then press **Enter**. 
+3. In Microsoft Edge, type **https://intune.microsoft.com** in the  address bar, and then press **Enter**. 
 
 4. Sign in as as **`admin@yourtenant.onmicrosoft.com`** with the default tenant password.
 
 5. From the navigation pane select **Devices**, then select **Compliance policies**.
 
-6. On the **Compliance policies | Policies** blade, in the details pane select **Create Policy**.
+6. On the **Compliance policies | Policies** blade, in the details pane select **Create policy**.
 
 7. On the **Create a policy** blade, provide the following value and select **Create**:
 
-- Platform: **Windows 10 and later**
+    - Platform: **Windows 10 and later**
 
 8. On the **Basics** tab, provide the following value and select **Next**:
 
-- Name: **Compliance1**
+    - Name: **Compliance1**
 
 9. On the **Compliance settings** tab, expand **Device Health** and review the available settings.
 
@@ -64,11 +64,11 @@ If a device meets these requirements, it will be marked as compliant. If the dev
 
     > Review how you can configure the number of days after which the device is marked as noncompliant, and configuration additional actions. 
 
-13. Select **Next**. On the **Assignments** tab, select **Add groups**. Select **Windows Devices**, choose **Select**, and then select **Next**. 
+13. Select **Next**. On the **Assignments** tab, under **Included groups** select **Add groups**. Select **Windows Devices**, choose **Select**, and then select **Next**. 
 
     _Note: The **Windows Devices** group was created in the Module 0301 lab._
 
-14. Select **Create**.
+14. On the **Review + create** tab, review the settings and then select **Create**.
 
 15. In the navigation menu, select **Devices** and then in the Devices navigation pane, select **Compliance policies**.
 
@@ -85,31 +85,35 @@ If a device meets these requirements, it will be marked as compliant. If the dev
 
 ### Scenario 
 
-When a user uses a device that is marked as non-compliant, they should not be able to access their e-mail. You've been asked to configure a conditional access policy that enforces this rule, and verify it functions as expected.
+When a user uses a device that is marked as non-compliant, they should not be able to access their e-mail. You've been asked to configure a conditional access policy that enforces this rule, and verify it functions as expected. In some cases, the user may experience a loop where they are prompted to sign in repeatedly.
 
 ### Task 1: Create a conditional access policy
 
-1. On **SEA-SVR1**, in the **Microsoft Endpoint Manager admin center** select **Devices**, then select **Conditional access**.
+1. On **SEA-SVR1**, in the **Intune admin center** select **Devices**, then select **Conditional access**.
 
-2. In the **Details** pane, select **New policy**.
+2. On the **Conditional Access | Overview** blade, select **Policies**.
 
-3. On the **New** blade, in the **Name** text box, type **Conditional1** and then select **0 users or workload identities selected**.
+3. On the **Conditional Access | Policies** blade, select **New policy**.
 
-4. On the **Users and groups** blade, select the **All users** radio button.
+4. On the **New** blade, in the **Name** text box, type **Conditional1** and then select **0 users and groups selected**.
 
-5. On the **New** blade, select **No cloud apps, actions, or authentication contexts selected**, select the **Select apps** radio button, under the Select option select **None**, select **Office 365 Exchange Online**, and then click **Select**.
+5. Under **Include**, select the **All users** radio button.
 
-6. On the **New** blade, in the **Conditions** section, select **0 conditions selected**. 
+6. On the **New** blade, in the **Target resources** section, select **No target resources selected**.
 
-7. In the list of conditions, under **Device platforms**, select **Not configured**. In the **Configure** section select **Yes**, select the **Select device platforms** radio button, select the **Windows** check box, and then select **Done**.
+7. Under **Include** choose the **Select apps** radio button, under the Select option select **None**, select **Office 365 Exchange Online**, and then click **Select**.
 
-8. On the **New** blade under **Access controls**, in the **Grant** section, select **0 controls selected**. Select the **Require device to be marked as compliant** check box, and then select **Select**.
+8. On the **New** blade, in the **Conditions** section, select **0 conditions selected**. 
 
-9. On the **New** blade, select **On** for the **Enable policy** option and then select **Create**.
+9. In the list of conditions, under **Device platforms**, select **Not configured**. In the **Configure** section select **Yes**, select the **Select device platforms** radio button, select the **Windows** check box, and then select **Done**.
 
-10. Close Microsoft Edge.
+10. On the **New** blade under **Access controls**, in the **Grant** section, select **0 controls selected**. Select the **Require device to be marked as compliant** check box, and then select **Select**.
 
-## Task 2: Verify that the conditional access policy is working
+11. On the **New** blade, select **On** for the **Enable policy** option and then select **Create**.
+
+12. Close Microsoft Edge.
+
+### Task 2: Verify that the conditional access policy is working
 
 1. Switch to **SEA-WS3** and sign in as **Admin** with the password of **Pa55w.rd**.
 
@@ -119,37 +123,41 @@ When a user uses a device that is marked as non-compliant, they should not be ab
 
 4. On the pick an account dialog box, select **`Aaron@yourtenant.onmicrosoft.com`**.
 
-5. On the **Enter password** page, enter **Pa55w.rd1234** and select **Sign in**. If the Microsoft Edge Save password prompt appears, select **Update**.
+5. On the **Enter password** page, enter **Pa55w.rd1234!** and select **Sign in**. If the Microsoft Edge Save password prompt appears, select **Update**.
 
-6. Verify that you receive the message **"Try signing in another way"**.
+6. You should receive a message that ask you to switch Edge profile. Select **Switch Edge profile**.
 
-7. Select **More details**. You should see more information about why you are blocked. 
+7. You will be prompted with a message stating, "**Continue with your work or school account**". Select Sign in to sync data.
 
-   _Note: This is because SEA-WS3 is not joined to Azure AD and not managed by Intune, so not marked as compliant._
+8. You will be required to enter your password again. Enter **Pa55w.rd1234!** and select **Sign in**.
 
-8. **Close** the browser window.
+9. A message will appear stating, "**Stay signed in to all your Microsoft apps**". Select **no, sign in to this app only**.
 
-9. Switch to **SEA-WS1**, and sign in as as Aaron Nicholls with the PIN **102938**. 
+    > Note: A prompt will appear stating, "**Allow my organization to manage my device**". This is because SEA-WS3 is not joined to Azure AD and not managed by Intune. As such, you are unable to access Aarons' mailbox from this device.
 
-   > Note: SEA-WS1 is a managed Windows 11 device that is enrolled in Intune.
+10. **Close** all windows and sign out of **SEA-WS3**.
 
-10. On the taskbar, select **Microsoft Edge**.
+11. Switch to **SEA-WS1**, and sign in as as Aaron Nicholls with the PIN **102938**. 
 
-11. In Microsoft Edge, type **Outlook.office.com** and then press Enter. 
+    > Note: SEA-WS1 is a managed Windows 11 device that is enrolled in Intune.
 
-12. Verify that you can access Aaron's mailbox. 
+12. On the taskbar, select **Microsoft Edge**.
 
-    _Note: This is because SEA-WS1 is a managed device and marked as compliant._
+13. In Microsoft Edge, type **outlook.office.com** and then press Enter. 
 
-13. Close Microsoft Edge and sign out of SEA-WS1.
+14. Verify that you can access Aaron's mailbox. 
+
+    > Note: This is because SEA-WS1 is a managed device and marked as compliant._
+
+15. Close Microsoft Edge and sign out of SEA-WS1.
 
 ### Task 3: Disable the conditional access policy
 
-1. Switch to **SEA-SVR1**.
+1. Switch to **SEA-SVR1** and enter the password **Pa55w.rd**.
 
 2. On the taskbar, select **Microsoft Edge**.
 
-3. In Microsoft Edge, type **https://endpoint.microsoft.com** in the  address bar, and then 
+3. In Microsoft Edge, type **https://intune.microsoft.com** in the  address bar, and then 
    press **Enter**.
 
 4. Sign in as as **`admin@yourtenant.onmicrosoft.com`** with the default tenant password.
@@ -160,7 +168,7 @@ When a user uses a device that is marked as non-compliant, they should not be ab
 
 6. From the navigation pane select **Devices**, then select **Conditional access**.
 
-7. On the **Conditional Access** page, select **Conditional1**.
+7. On the **Conditional Access** page, select **Policies** and then select **Conditional1**.
 
 8. On the **Conditional1** page, at the bottom of the page, select **Off** and then select **Save**.
 
